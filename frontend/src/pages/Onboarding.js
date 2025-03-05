@@ -9,7 +9,7 @@ const Onboarding = () => {
 
   const handleSelect = async () => {
     const telegramId = 'mockUser123';
-    await axios.post('http://localhost:5000/setNation', { telegramId, homeNation: nation });
+    await axios.post('https://island-adventure-mvp.onrender.com/setNation', { telegramId, homeNation: nation });
     navigate('/home');
   };
 

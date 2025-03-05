@@ -8,7 +8,7 @@ const Wallet = () => {
   const telegramId = 'mockUser123';
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/user/${telegramId}`).then((res) => {
+    axios.get(`https://island-adventure-mvp.onrender.com/setNation${telegramId}`).then((res) => {
       setPoints(res.data.points);
       setNation(res.data.homeNation);
     });

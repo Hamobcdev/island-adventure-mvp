@@ -7,14 +7,14 @@ const HomeIsland = () => {
   const telegramId = 'mockUser123';
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/user/${telegramId}`).then((res) => {
+    axios.get(`https://island-adventure-mvp.onrender.com/setNation${telegramId}`).then((res) => {
       setPoints(res.data.points);
       setNation(res.data.homeNation); // Set homeNation from response
     });
   }, []);
 
   const handleClick = async () => {
-    const res = await axios.post('http://localhost:5000/click', { telegramId });
+    const res = await axios.post('https://island-adventure-mvp.onrender.com/setNation', { telegramId });
     setPoints(res.data.points);
   };
 
