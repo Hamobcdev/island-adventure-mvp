@@ -33,4 +33,4 @@ app.post('/setNation', (req, res) => {
   res.json({ homeNation: users[telegramId].homeNation, points: users[telegramId].points });
 });
 
-app.listen(5000, () => console.log('Server running on port 5000'));
+app.listen(5000, () => console.log('Backend updated'));
