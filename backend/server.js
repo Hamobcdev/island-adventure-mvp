@@ -1,8 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+
+// CORS configuration: Allow Vercel domains or all in development
+const allowedOrigins = [
+  'https://island-adventure-7i9xrur6a-synergy-blockchain-pacific.vercel.app',
+  'https://island-adventure-kwnx6xp29-synergy-blockchain-pacific.vercel.app',
+  'http://localhost:3000', // For local testing
+];
 app.use(cors({
-  origin: 'https://island-adventure-kwnx6xp29-synergy-blockchain-pacific.vercel.app'
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 }));
 app.use(express.json());
 
@@ -30,6 +43,9 @@ app.get('/user/:telegramId', (req, res) => {
 
 app.post('/setNation', (req, res) => {
   const { telegramId, homeNation } = req.body;
+  if (!telegramId || !homeNation) {
+    return res.status(400).json({ error: 'telegramId and homeNation are required' });
+  }
   users[telegramId] = users[telegramId] || { homeNation: '', points: 0 };
   users[telegramId].homeNation = homeNation;
   res.json({ homeNation: users[telegramId].homeNation, points: users[telegramId].points });
