@@ -3,29 +3,36 @@ import axios from 'axios';
 
 const AdsHut = () => {
   const [points, setPoints] = useState(0);
-  const [nation, setNation] = useState(''); // Added to store homeNation
   const telegramId = 'mockUser123';
 
   useEffect(() => {
-    axios.get(`https://island-adventure-mvp.onrender.com/setNation${telegramId}`).then((res) => {
-      setPoints(res.data.points);
-      setNation(res.data.homeNation); // Set homeNation from response
-    });
-  }, []);
+    const fetchPoints = async () => {
+      try {
+        const response = await axios.get(`https://island-adventure-mvp.onrender.com/user/${telegramId}`);
+        setPoints(response.data.points);
+      } catch (error) {
+        console.error('Error fetching points:', error.message, error.response ? error.response.data : '');
+        alert('Failed to load points. Check console for details.');
+      }
+    };
+    fetchPoints();
+  }, [telegramId]);
 
   const handleWatchAd = async () => {
-    const res = await axios.post('https://island-adventure-mvp.onrender.com/setNation/watchAd', { telegramId });
-    setPoints(res.data.points);
-    alert(`Ad watched in ${nation || 'your nation'}! +10 Points`);
+    try {
+      const response = await axios.post('https://island-adventure-mvp.onrender.com/watchAd', { telegramId });
+      setPoints(response.data.points);
+    } catch (error) {
+      console.error('Error watching ad:', error.message, error.response ? error.response.data : '');
+      alert('Failed to update points. Check console for details.');
+    }
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>Ads Hut - {nation || 'No Nation Selected'}</h1>
+    <div>
+      <h1>Ads Hut</h1>
       <p>Points: {points}</p>
-      <button onClick={handleWatchAd}>Watch Ad</button>
-      <br />
-      <a href="/home">Back to Home</a>
+      <button onClick={handleWatchAd}>Watch Ad for 10 Points</button>
     </div>
   );
 };
