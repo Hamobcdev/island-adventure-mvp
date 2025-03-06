@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://island-adventure-kwnx6xp29-synergy-blockchain-pacific.vercel.app'
+}));
 app.use(express.json());
 
 let users = {};
@@ -33,4 +35,5 @@ app.post('/setNation', (req, res) => {
   res.json({ homeNation: users[telegramId].homeNation, points: users[telegramId].points });
 });
 
-app.listen(5000, () => console.log('Backend updated'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
