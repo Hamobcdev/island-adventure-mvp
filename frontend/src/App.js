@@ -5,7 +5,6 @@ import Onboarding from './pages/Onboarding';
 import HomeIsland from './pages/HomeIsland';
 import AdsHut from './pages/AdsHut';
 import Wallet from './pages/Wallet';
-import { Builder } from '@ton/ton';
 
 const App = () => {
   return (
