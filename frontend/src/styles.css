@@ -1,0 +1,52 @@
+/* frontend/src/styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  nav {
+    margin-bottom: 20px;
+  }
+  
+  nav a {
+    margin: 0 10px;
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  select, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    margin-top: 10px;
+  }
+  
+  button:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  p {
+    font-size: 18px;
+    color: #666;
+  }

@@ -1,3 +1,4 @@
+import './styles.css'; 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -9,8 +10,14 @@ const Onboarding = () => {
 
   const handleSelect = async () => {
     const telegramId = 'mockUser123';
-    await axios.post('https://island-adventure-mvp.onrender.com/setNation', { telegramId, homeNation: nation });
-    navigate('/home');
+    try {
+      const response = await axios.post('https://island-adventure-mvp.onrender.com/setNation', { telegramId, homeNation: nation });
+      console.log('API Response:', response.data);
+      navigate('/home');
+    } catch (error) {
+      console.error('Error setting nation:', error.message, error.response ? error.response.data : '');
+      alert('Failed to start adventure. Check console for details.');
+    }
   };
 
   return (
