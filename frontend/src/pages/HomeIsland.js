@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const HomeIsland = () => {
@@ -31,6 +32,11 @@ const HomeIsland = () => {
   return (
     <div>
       <h1>Welcome to Your Island!</h1>
+      <nav>
+        <Link to="/home">Home</Link> | 
+        <Link to="/ads">Ads</Link> | 
+        <Link to="/wallet">Wallet</Link>
+      </nav>
       <p>Points: {points}</p>
       <button onClick={handleClick}>Tap for 5 Points</button>
     </div>

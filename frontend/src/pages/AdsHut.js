@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const AdsHut = () => {
@@ -31,6 +32,11 @@ const AdsHut = () => {
   return (
     <div>
       <h1>Ads Hut</h1>
+      <nav>
+        <Link to="/home">Home</Link> | 
+        <Link to="/ads">Ads</Link> | 
+        <Link to="/wallet">Wallet</Link>
+      </nav>
       <p>Points: {points}</p>
       <button onClick={handleWatchAd}>Watch Ad for 10 Points</button>
     </div>
