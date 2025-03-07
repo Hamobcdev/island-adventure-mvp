@@ -4,8 +4,7 @@ const app = express();
 
 // CORS configuration: Allow Vercel domains or all in development
 const allowedOrigins = [
-  'https://island-adventure-7i9xrur6a-synergy-blockchain-pacific.vercel.app',
-  'https://island-adventure-kwnx6xp29-synergy-blockchain-pacific.vercel.app',
+  'island-adventure-p464zfreg-synergy-synergy-blockchain-pacific.vercel.app',
   'http://localhost:3000', // For local testing
 ];
 app.use(cors({
