@@ -11,7 +11,7 @@ const Onboarding = () => {
 
   const handleSelect = async () => {
     try {
-      const response = await axios.post('https://island-adventure-mvp.onrender.com/setNation', {
+      const response = await axios.post('http://localhost:5000/setNation', {
         telegramId,
         homeNation: nation,
       });
