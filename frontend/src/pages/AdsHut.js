@@ -10,7 +10,7 @@ const AdsHut = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://island-adventure-mvp.onrender.com/user/${telegramId}`);
+        const response = await axios.get(`http://localhost:5000/user/${telegramId}`);
         setPoints(response.data.points);
         setNation(response.data.homeNation);
       } catch (error) {
@@ -23,7 +23,7 @@ const AdsHut = () => {
 
   const handleWatchAd = async () => {
     try {
-      const response = await axios.post('https://island-adventure-mvp.onrender.com/watchAd', { telegramId });
+      const response = await axios.post('http://localhost:5000/watchAd', { telegramId });
       setPoints(response.data.points);
     } catch (error) {
       console.error('Error watching ad:', error);

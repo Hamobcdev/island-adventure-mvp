@@ -9,7 +9,7 @@ import Wallet from './pages/Wallet';
 
 const App = () => {
   return (
-    <TonConnectUIProvider manifestUrl="island-adventure-p464zfreg-synergy-blockchain-pacific.vercel.app/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl="https://island-adventure-p464zfreg-synergy-blockchain-pacific.vercel.app/tonconnect-manifest.json">
       <Router>
         <Routes>
           <Route path="/" element={<Onboarding />} />

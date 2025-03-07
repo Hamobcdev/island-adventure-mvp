@@ -1,49 +1,70 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useTonConnectUI } from '@tonconnect/ui-react';
+import '../styles.css';
 
 const Wallet = () => {
-  const [tonConnectUI] = useTonConnectUI();
+  const [tonConnectUI, setOptions] = useTonConnectUI();
+  const [isConnected, setIsConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState(''); // Mock address for local dev
+
+  useEffect(() => {
+    setIsConnected(tonConnectUI.connected);
+    const unsubscribe = tonConnectUI.onStatusChange((wallet) => {
+      setIsConnected(!!wallet);
+      if (wallet) setWalletAddress(wallet.account?.address || 'mockAddress123');
+    });
+    return () => unsubscribe();
+  }, [tonConnectUI]);
 
   const handleConnect = async () => {
-    try {
-      await tonConnectUI.openModal();
-    } catch (error) {
-      console.error('Error connecting wallet:', error);
-      alert('Failed to connect wallet. Check console for details.');
+    if (isConnected) {
+      await tonConnectUI.disconnect();
+      console.log('Wallet disconnected');
+      setWalletAddress('');
+    } else {
+      try {
+        // Mock connection locally if not deployed
+        if (window.location.hostname === 'localhost') {
+          setIsConnected(true);
+          setWalletAddress('mockAddress123');
+          console.log('Mock wallet connected locally');
+        } else {
+          await tonConnectUI.connectWallet();
+          console.log('Wallet connected');
+        }
+      } catch (error) {
+        console.error('Connection error:', error);
+      }
     }
   };
 
   return (
-    <div style={{ 
-      textAlign: 'center', 
-      padding: '20px', 
-      fontFamily: 'Arial, sans-serif', 
-      backgroundColor: '#f0f0f0', 
-      minHeight: '100vh' 
-    }}>
+    <div style={{ textAlign: 'center', padding: '20px', fontFamily: 'Arial, sans-serif', backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
       <h1 style={{ color: '#333', marginBottom: '20px' }}>Wallet</h1>
-      <nav style={{ marginBottom: '20px' }}>
-        <Link to="/home" style={{ margin: '0 10px', color: '#4CAF50', textDecoration: 'none' }}>Home</Link> | 
-        <Link to="/ads" style={{ margin: '0 10px', color: '#4CAF50', textDecoration: 'none' }}>Ads</Link> | 
-        <Link to="/wallet" style={{ margin: '0 10px', color: '#4CAF50', textDecoration: 'none' }}>Wallet</Link>
-      </nav>
-      <button 
-        onClick={handleConnect} 
-        style={{ 
-          padding: '10px 20px', 
-          fontSize: '16px', 
-          backgroundColor: '#4CAF50', 
-          color: 'white', 
-          border: 'none', 
-          borderRadius: '5px', 
-          cursor: 'pointer', 
-          marginTop: '10px' 
+      <button
+        onClick={handleConnect}
+        style={{
+          padding: '10px 20px',
+          fontSize: '16px',
+          backgroundColor: isConnected ? '#FF5733' : '#4CAF50',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
         }}
       >
-        Connect Wallet
+        {isConnected ? 'Disconnect Wallet' : 'Connect Wallet'}
       </button>
-      {tonConnectUI.connected && <p style={{ fontSize: '18px', color: '#666' }}>Connected: {tonConnectUI.account?.address}</p>}
+      {isConnected && (
+        <p style={{ marginTop: '20px', color: '#333' }}>
+          Wallet Address: {walletAddress}
+        </p>
+      )}
+      {window.location.hostname === 'localhost' && !isConnected && (
+        <p style={{ marginTop: '20px', color: '#666' }}>
+          Local mock mode: Click "Connect Wallet" to simulate connection.
+        </p>
+      )}
     </div>
   );
 };
