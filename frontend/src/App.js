@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Onboarding from './pages/Onboarding';
 import HomeIsland from './pages/HomeIsland';
 import AdsHut from './pages/AdsHut';
