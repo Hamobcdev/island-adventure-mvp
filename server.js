@@ -2,10 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// CORS configuration: Allow Vercel domains or all in development
 const allowedOrigins = [
-  'https://island-adventure-p464zfreg-synergy-blockchain-pacific.vercel.app',
-  'http://localhost:3000', // For local testing
+  'https://island-adventure-p464zfreg-synergy-blockchain-pacific.vercel.app', // Production
+  'http://localhost:3000', // Local development
 ];
 app.use(cors({
   origin: (origin, callback) => {
