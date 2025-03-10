@@ -1,52 +1,37 @@
-/* frontend/src/styles.css */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    min-height: 100vh;
-  }
-  
-  .container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  h1 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  nav {
-    margin-bottom: 20px;
-  }
-  
-  nav a {
-    margin: 0 10px;
-    color: #4CAF50;
-    text-decoration: none;
-  }
-  
-  select, button {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-  }
-  
-  button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    margin-top: 10px;
-  }
-  
-  button:disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-  
-  p {
-    font-size: 18px;
-    color: #666;
-  }
+.home-island {
+  transition: background-image 0.5s ease-in-out;
+}
+
+.home-island.fiji {
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/bg-1.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.home-island.samoa {
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/bg-2.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.home-island.tonga {
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/bg-3.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.onboarding {
+  transition: background-image 0.5s ease-in-out;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/onboarding-bg-logo.png') no-repeat center center;
+  background-size: cover;
+}
+
+/* Remove logo-background since it's no longer used */
+.wallet {
+  transition: background-image 0.5s ease-in-out;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+p {
+  margin: 0 0 20px;
+}

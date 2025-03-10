@@ -1,57 +1,81 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles.css'; // Assuming this exists
+import '../styles.css';
 
 const Onboarding = () => {
-  const [nation, setNation] = useState('');
-  const navigate = useNavigate();
-  const telegramId = 'mockUser123'; // Replace with real Telegram ID logic later
-  const nations = ['Fiji', 'Samoa', 'Tonga'];
+  const [selectedNation, setSelectedNation] = useState('');
+  const [telegramId] = useState('mockUser123');
 
-  const handleSelect = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/setNation', {
-        telegramId,
-        homeNation: nation,
-      });
-      console.log('API Response:', response.data);
-      navigate('/home');
-    } catch (error) {
-      console.error('Error setting nation:', error.message, error.response ? error.response.data : '');
-      alert('Failed to start adventure. Check console for details.');
+  const handleNationChange = (event) => {
+    setSelectedNation(event.target.value);
+  };
+
+  const handleStartAdventure = async () => {
+    if (selectedNation && telegramId) {
+      try {
+        await axios.post('http://localhost:5000/setNation', { telegramId, homeNation: selectedNation });
+        window.location.href = '/home';
+      } catch (error) {
+        console.error('Error setting nation:', error);
+      }
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px', fontFamily: 'Arial, sans-serif', backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
-      <h1 style={{ color: '#333', marginBottom: '20px' }}>Aloha! Pick Your Island</h1>
-      <select
-        onChange={(e) => setNation(e.target.value)}
-        value={nation}
-        style={{ padding: '10px', fontSize: '16px', marginBottom: '20px', borderRadius: '5px' }}
-      >
+    <div
+      className="onboarding"
+      style={{
+        backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/onboarding-bg-logo.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#FFFFFF',
+        textShadow: '1px 1px 3px rgba(0, 0, 0, 0.6)',
+      }}
+    >
+      <h1 style={{ fontFamily: "'Pacifico', cursive", fontSize: '36px' }}>
+        Synergy Blockchain Pacific DAO Onboarding
+      </h1>
+      <p style={{ fontFamily: "'Roboto', sans-serif", marginBottom: '20px' }}>
+        Welcome! Choose your island nation to begin your adventure.
+      </p>
+      <select value={selectedNation} onChange={handleNationChange} style={{ padding: '10px', marginBottom: '20px' }}>
         <option value="">Select Nation</option>
-        {nations.map((n) => (
-          <option key={n} value={n}>{n}</option>
-        ))}
+        <option value="Fiji">Fiji</option>
+        <option value="Samoa">Samoa</option>
+        <option value="Tonga">Tonga</option>
       </select>
-      <br />
       <button
-        onClick={handleSelect}
-        disabled={!nation}
+        onClick={handleStartAdventure}
         style={{
           padding: '10px 20px',
           fontSize: '16px',
-          backgroundColor: nation ? '#4CAF50' : '#ccc',
+          backgroundColor: '#40E0D0',
           color: 'white',
           border: 'none',
           borderRadius: '5px',
-          cursor: nation ? 'pointer' : 'not-allowed',
+          cursor: 'pointer',
+          fontFamily: "'Roboto', sans-serif",
         }}
       >
         Start Adventure
       </button>
+      <div style={{ marginTop: '20px' }}>
+        <a href="https://example.com/whitepaper" target="_blank" rel="noopener noreferrer" style={{ color: '#FFFFFF', marginRight: '15px' }}>
+          Whitepaper
+        </a>
+        <a href="https://example.com/terms" target="_blank" rel="noopener noreferrer" style={{ color: '#FFFFFF' }}>
+          Terms of Use
+        </a>
+      </div>
+      <p style={{ marginTop: '20px', fontStyle: 'italic' }}>
+        (Signup page coming soon - to be linked to database later)
+      </p>
     </div>
   );
 };
